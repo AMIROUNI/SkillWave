@@ -1,4 +1,5 @@
 package com.example.skillwavebackend.models;
+import com.example.skillwavebackend.Enum.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,9 +18,12 @@ public class User {
 
     private String password;
 
-    private String role; // STUDENT, INSTRUCTOR, ADMIN
+
 
     private String avatarUrl;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @Column(columnDefinition = "TEXT")
     private String bio;
