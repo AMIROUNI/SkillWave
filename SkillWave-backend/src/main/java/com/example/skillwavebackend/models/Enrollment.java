@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "enrollments")
@@ -24,5 +25,5 @@ public class Enrollment {
     @JoinColumn(name = "student_id")
     private User student;
 
-    private LocalDateTime enrolledAt;
+    private Date enrolledAt;
 }
