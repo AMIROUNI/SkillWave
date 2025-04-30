@@ -70,10 +70,10 @@ export class CourseManagementComponent {
 
   onSubmit() {
     if (this.courseForm.valid && this.selectedFile) {
-      // First upload the image
+     // First upload the image
       this.uploadService.uploadImage(this.selectedFile).subscribe({
         next: (imageUrl) => {
-          console.log('Image uploaded successfully:', imageUrl);
+          console.log('Image  uploaded successfully:', imageUrl);
 
           // Update the form with the image URL
           this.courseForm.patchValue({ imageUrl: imageUrl });

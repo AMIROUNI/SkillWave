@@ -1,6 +1,7 @@
 import { Component,Output,EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-signin',
@@ -33,8 +34,8 @@ export class SigninComponent {
  onSubmitLogin(): void {
   if (this.formLogin.invalid) return;
 
-  const credentials = {
-    username: this.formLogin.get('username')?.value || '',
+  const credentials :User = {
+    email: this.formLogin.get('username')?.value || '',
     password: this.formLogin.get('password')?.value || ''
   };
 

@@ -1,70 +1,86 @@
-<form class="p-4" [formGroup]="signupForm" (ngSubmit)="onSubmit()" style="margin-top: 6em  ;">
-    <!-- Username Field -->
-    <div class="mb-3">
-      <label class="form-label">Username</label>
-      <input class="form-control" formControlName="username" type="text" placeholder="Enter username" 
-             [class.is-invalid]="isInvalidAndTouchedOrDirty(signupForm.controls.username)">
-      <small *ngIf="isInvalidAndTouchedOrDirty(signupForm.controls.username)" class="text-danger">
-        <ng-container *ngIf="signupForm.controls.username.hasError('required')">Username is required</ng-container>
-        <ng-container *ngIf="signupForm.controls.username.hasError('minlength')">Minimum length is 4 characters</ng-container>
-        <ng-container *ngIf="signupForm.controls.username.hasError('maxlength')">Maximum length is 20 characters</ng-container>
-      </small>
-    </div>
-  
-    <!-- Email Field -->
-    <div class="mb-3">
-      <label class="form-label">Email</label>
-      <input class="form-control" formControlName="email" type="email" placeholder="Enter email" 
-             [class.is-invalid]="isInvalidAndTouchedOrDirty(signupForm.controls.email )">
-      <small *ngIf="isInvalidAndTouchedOrDirty(signupForm.controls.email )" class="text-danger">
-        <ng-container *ngIf="signupForm.controls.email.hasError('required')">Email is required</ng-container>
-        <ng-container *ngIf="signupForm.controls.email.hasError('email')">Please enter a valid email</ng-container>
-      </small>
-    </div>
-  
-    <!-- Password Field -->
-    <div class="mb-3">
-      <label class="form-label">Password</label>
-      <input class="form-control" formControlName="password" type="password" placeholder="Enter password" 
-             [class.is-invalid]="isInvalidAndTouchedOrDirty(signupForm.controls.password )">
-      <small *ngIf="isInvalidAndTouchedOrDirty(signupForm.controls.password )" class="text-danger">
-        <ng-container *ngIf="signupForm.controls.password.hasError('required')">Password is required</ng-container>
-        <ng-container *ngIf="signupForm.controls.password.hasError('minlength')">Password must be at least 8 characters</ng-container>
-    
-      </small>
-    </div>
-  
-    <!-- Confirm Password Field -->
-    <div class="mb-3">
-      <label class="form-label">Confirm Password</label>
-      <input class="form-control" formControlName="confirmPassword" type="password" placeholder="Confirm password" 
-             [class.is-invalid]="isInvalidAndTouchedOrDirty(signupForm.controls.confirmPassword ) ">
-      <small *ngIf="isInvalidAndTouchedOrDirty(signupForm.controls.confirmPassword ) " class="text-danger">
-        <ng-container *ngIf="signupForm.controls.confirmPassword.hasError('required')">Please confirm your password</ng-container>
-        <ng-container *ngIf="passwordMatchValidator(signupForm)">Passwords do not match</ng-container>
-      </small>
-    </div>
-  
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="p-4" style="margin-top: 6em;">
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
 
-    <div class="mb-3">
-      <label class="form-label">Role</label>
-      <select class="form-select" formControlName="role">
-        <option value="STUDENT">Student</option>
-        <option value="INSTRUCTOR">Instructor</option>
-        
-      </select>
+  <!-- Username -->
+  <div class="mb-3">
+    <label class="form-label">Username</label>
+    <input type="text" class="form-control" formControlName="username"
+           [class.is-invalid]="isInvalid('username')">
+    <div *ngIf="isInvalid('username')" class="text-danger">
+      <small *ngIf="signupForm.get('username')?.hasError('required')">Username is required</small>
+      <small *ngIf="signupForm.get('username')?.hasError('minlength')">Minimum 4 characters</small>
+      <small *ngIf="signupForm.get('username')?.hasError('maxlength')">Maximum 20 characters</small>
     </div>
+  </div>
 
-    <div class="mb-3">
-      <label class="form-label">Avatar URL</label>
-      <input class="form-control" formControlName="avatarUrl" type="file" placeholder="Enter avatar URL">
+  <!-- Email -->
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" formControlName="email"
+           [class.is-invalid]="isInvalid('email')">
+    <div *ngIf="isInvalid('email')" class="text-danger">
+      <small *ngIf="signupForm.get('email')?.hasError('required')">Email is required</small>
+      <small *ngIf="signupForm.get('email')?.hasError('email')">Invalid email format</small>
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" formControlName="password"
+           [class.is-invalid]="isInvalid('password')">
+    <div *ngIf="isInvalid('password')" class="text-danger">
+      <small *ngIf="signupForm.get('password')?.hasError('required')">Password is required</small>
+      <small *ngIf="signupForm.get('password')?.hasError('minlength')">Minimum 8 characters</small>
+    </div>
+  </div>
+
+  <!-- Confirm Password -->
+  <div class="mb-3">
+    <label class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" formControlName="confirmPassword"
+           [class.is-invalid]="signupForm.get('confirmPassword')?.dirty ">
+
+      <small>Passwords do not match</small>
     </div>
   
-    <div class="mb-3">
-      <label class="form-label">Bio</label>
-      <textarea class="form-control" formControlName="bio" placeholder="Enter bio" rows="3"></textarea>
-    </div>
-  
+  <!-- Role -->
+  <div class="mb-3">
+    <label class="form-label">Role</label>
+    <select class="form-select" formControlName="role">
+      <option value="STUDENT">Student</option>
+      <option value="INSTRUCTOR">Instructor</option>
+    </select>
+  </div>
 
-    <button class="btn btn-primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
-  </form>
+  <!-- Avatar Upload -->
+  <div class="mb-3">
+    <label class="form-label">Avatar</label>
+    <div class="d-flex align-items-center gap-2">
+      <button type="button" class="btn btn-outline-secondary" 
+              (click)="triggerFileInput(fileInput)">
+        Choose File
+      </button>
+      <input #fileInput type="file" hidden accept="image/*" 
+             (change)="onFileSelected($event)">
+      <span *ngIf="selectedFile" class="text-muted">{{ selectedFile.name }}</span>
+    </div>
+    <div *ngIf="previewUrl" class="mt-2">
+      <img [src]="previewUrl" alt="Preview" class="img-thumbnail" style="max-width: 150px;">
+    </div>
+  </div>
+
+  <!-- Bio -->
+  <div class="mb-3">
+    <label class="form-label">Bio</label>
+    <textarea class="form-control" formControlName="bio" rows="3"></textarea>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary" [disabled]="loading || signupForm.invalid">
+    <span *ngIf="!loading">Sign Up</span>
+    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"></span>
+  </button>
+</form>

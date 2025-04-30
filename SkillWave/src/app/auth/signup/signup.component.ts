@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { UploadService } from '../../services/upload.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-signup',
@@ -8,56 +11,106 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   standalone:false
 })
 export class SignupComponent {
-  signupForm = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(20),
+  signupForm: FormGroup;
+  selectedFile: File | null = null;
+  previewUrl: string | ArrayBuffer | null = null;
+  loading = false;
+  errorMessage: string | null = null;
 
-    ]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-   
-    ]),
-    confirmPassword: new FormControl('', [
-      Validators.required
-    ]),
-    role: new FormControl('STUDENT', [
-      Validators.required
-    ]),
-    avatarUrl: new FormControl(''),
-    bio: new FormControl('')
-  }, );
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private uploadService: UploadService
+  ) {
+    this.signupForm = this.fb.group({
+      username: ['', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20)
+      ]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8)
+      ]],
+      confirmPassword: ['', [Validators.required]],
+      role: ['STUDENT', [Validators.required]],
+      avatarUrl: [''],
+      bio: ['']
+    });
+  }
 
-  passwordMatchValidator(formGroup: FormGroup) {
-    const password = formGroup.get('password')?.value;
-    const confirmPassword = formGroup.get('confirmPassword')?.value;
-    return password === confirmPassword ;
+  triggerFileInput(fileInput: HTMLInputElement): void {
+    fileInput.click();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      this.selectedFile = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => this.previewUrl = reader.result;
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  private passwordsMatch(): boolean {
+    return this.signupForm.value.password === this.signupForm.value.confirmPassword;
   }
 
   onSubmit(): void {
-    if (this.signupForm.invalid) return;
+    this.errorMessage = null;
 
-    const user = {
-      username: this.signupForm.get('username')?.value || '',
-      email: this.signupForm.get('email')?.value || '',
-      password: this.signupForm.get('password')?.value || '',
-      role: this.signupForm.get('role')?.value || 'STUDENT',
-      avatarUrl: this.signupForm.get('avatarUrl')?.value || '',
-      bio: this.signupForm.get('bio')?.value || ''
-    };
+    if (this.signupForm.invalid || !this.passwordsMatch()) {
+      this.errorMessage = 'Please fix the form errors.';
+      return;
+    }
 
-    console.log(user);
+    if (!this.selectedFile) {
+      this.errorMessage = 'Please select an avatar image.';
+      return;
+    }
+
+    this.loading = true;
+
+    this.uploadService.uploadImage(this.selectedFile).subscribe({
+      next: (avatarUrl) => {
+        this.signupForm.patchValue({ avatarUrl });
+
+        const user: User = {
+          username: this.signupForm.value.username,
+          email: this.signupForm.value.email,
+          password: this.signupForm.value.password,
+          role: this.signupForm.value.role,
+          avatarUrl,
+          bio: this.signupForm.value.bio
+        };
+
+        this.authService.register(user).subscribe({
+          next: (createdUser) => {
+            console.log('Registration successful:', createdUser);
+            this.signupForm.reset({ role: 'STUDENT' });
+            this.previewUrl = null;
+            this.selectedFile = null;
+            this.loading = false;
+          },
+          error: (err) => {
+            console.error('Registration error:', err);
+            this.errorMessage = err.error?.message || 'Registration failed';
+            this.loading = false;
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Upload error:', err);
+        this.errorMessage = 'Image upload failed';
+        this.loading = false;
+      }
+    });
   }
 
-  isInvalidAndTouchedOrDirty(formControl: FormControl): boolean {
-    return formControl.invalid && (formControl.touched || formControl.dirty);
+  isInvalid(controlName: string): boolean {
+    const control = this.signupForm.get(controlName);
+    return !!control && control.invalid && (control.dirty || control.touched);
   }
-
-
 }
