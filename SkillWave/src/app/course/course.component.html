@@ -1,0 +1,25 @@
+<div class="galaxy-course-container" style="margin-top: 5em;">
+    <div class="stellar-header">
+      <h1 class="nebula-title">Explore the Cosmos of Knowledge</h1>
+      <p class="cosmic-subtitle">Journey through interstellar courses that will expand your universe</p>
+      <div class="meteor-divider"></div>
+    </div>
+    
+    <div class="constellation-grid">
+      <div class="star-field-bg"></div>
+      <div class="comet-trail"></div>
+      
+      <div class="orbital-row">
+        <div class="planet-col" *ngFor="let course of courses">
+          <app-card-course [course]="course"></app-card-course>
+        </div>
+      </div>
+    </div>
+    
+    <div class="black-hole-footer">
+      <div class="event-horizon">
+        <p>Ready to dive deeper into the cosmic abyss of learning?</p>
+        <button class="supernova-btn">Launch Your Journey</button>
+      </div>
+    </div>
+  </div>

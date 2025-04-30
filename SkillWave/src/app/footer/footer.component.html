@@ -1,0 +1,65 @@
+<footer class="skillwave-footer" style="z-index:0;">
+    <div class="footer-container">
+      <!-- Logo and Description -->
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <span class="logo-icon">SW</span>
+          <span class="logo-text">SkillWave</span>
+        </a>
+        <p class="brand-description">
+          Empowering learners worldwide with accessible, high-quality education.
+        </p>
+      </div>
+  
+      <!-- Footer Links -->
+      <div class="footer-links">
+        <div class="link-section">
+          <h4>Company</h4>
+          <ul>
+            <li *ngFor="let link of companyLinks">
+              <a [href]="link.url" class="footer-link">{{ link.name }}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="link-section">
+          <h4>For Learners</h4>
+          <ul>
+            <li *ngFor="let link of learnerLinks">
+              <a [href]="link.url" class="footer-link">{{ link.name }}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="link-section">
+          <h4>Support</h4>
+          <ul>
+            <li *ngFor="let link of supportLinks">
+              <a [href]="link.url" class="footer-link">{{ link.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <!-- Social Media -->
+      <div class="footer-social">
+        <h4>Connect With Us</h4>
+        <div class="social-icons">
+          <a href="https://twitter.com" class="social-icon" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://facebook.com" class="social-icon" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://linkedin.com" class="social-icon" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Copyright -->
+    <div class="footer-bottom">
+      <p>&copy; 2025 SkillWave. All rights reserved.</p>
+      <a href="/privacy" class="bottom-link">Privacy Policy</a>
+      <a href="/terms" class="bottom-link">Terms of Service</a>
+    </div>
+  </footer>

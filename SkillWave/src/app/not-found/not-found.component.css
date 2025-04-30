@@ -1,0 +1,445 @@
+/* Base styles */
+:host {
+    display: block;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .space-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+  }
+  
+  /* Stars */
+  .stars {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--duration) infinite ease-in-out;
+  }
+  
+  .stars::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+    transform: translate(-50%, -50%);
+  }
+  
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  
+  /* Generate random stars */
+  .stars {
+    --size: calc(1px + (3 * var(--random-size)));
+    --top: calc(var(--random-top) * 100%);
+    --left: calc(var(--random-left) * 100%);
+    --duration: calc(5s + (10 * var(--random-duration)));
+    width: var(--size);
+    height: var(--size);
+    top: var(--top);
+    left: var(--left);
+    opacity: 0;
+    animation-delay: calc(var(--random-delay) * 10s);
+  }
+  
+  /* Planets */
+  .planet {
+    position: absolute;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  }
+  
+  .planet::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  /* Generate random planets */
+  .planet {
+    --size: calc(50px + (150 * var(--random-size)));
+    --top: calc(var(--random-top) * 100%);
+    --left: calc(var(--random-left) * 100%);
+    width: var(--size);
+    height: var(--size);
+    top: var(--top);
+    left: var(--left);
+    background: radial-gradient(
+      circle at 30% 30%,
+      var(--planet-color1),
+      var(--planet-color2)
+    );
+  }
+  
+  .planet::before {
+    --spot-size: calc(var(--size) * 0.7);
+    width: var(--spot-size);
+    height: var(--spot-size);
+    top: 20%;
+    left: 20%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 70%
+    );
+  }
+  
+  /* Comet */
+  .comet {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(to right, 
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(100, 220, 255, 0.6) 100%);
+    box-shadow: 0 0 20px 2px rgba(100, 220, 255, 0.6);
+    top: 15%;
+    left: 30%;
+    animation: comet 20s linear infinite;
+  }
+  
+  .comet::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 2px;
+    background: linear-gradient(to right, 
+      rgba(100, 220, 255, 0.3) 0%,
+      transparent 100%);
+    transform-origin: left center;
+    transform: rotate(-45deg);
+  }
+  
+  @keyframes comet {
+    0% { transform: translateX(0) translateY(0); opacity: 1; }
+    70% { opacity: 1; }
+    100% { transform: translateX(-1000px) translateY(600px); opacity: 0; }
+  }
+  
+  /* Galaxy */
+  .galaxy {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: -100px;
+    right: -200px;
+    background: radial-gradient(
+      circle at center,
+      rgba(138, 43, 226, 0.2) 0%,
+      transparent 70%
+    );
+    opacity: 0.5;
+    animation: rotate 120s linear infinite;
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Main content */
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    width: 90%;
+    max-width: 800px;
+  }
+  
+  /* Astronaut */
+  .astronaut {
+    position: relative;
+    width: 150px;
+    height: 200px;
+    margin: 0 auto 40px;
+  }
+  
+  .helmet {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 50%;
+    top: 0;
+    left: 25px;
+    box-shadow: 0 0 0 5px #333,
+                0 0 0 10px #ddd,
+                0 0 0 15px #333;
+  }
+  
+  .visor {
+    position: absolute;
+    width: 60px;
+    height: 40px;
+    background: rgba(100, 200, 255, 0.6);
+    border-radius: 20px;
+    top: 30px;
+    left: 20px;
+    border: 3px solid #333;
+  }
+  
+  .body {
+    position: absolute;
+    width: 80px;
+    height: 100px;
+    background: white;
+    border-radius: 20px;
+    top: 90px;
+    left: 35px;
+    border: 5px solid #333;
+  }
+  
+  .arm {
+    position: absolute;
+    width: 25px;
+    height: 70px;
+    background: white;
+    border-radius: 10px;
+    top: 90px;
+    border: 5px solid #333;
+  }
+  
+  .arm.left {
+    left: 5px;
+    transform: rotate(20deg);
+  }
+  
+  .arm.right {
+    right: 5px;
+    transform: rotate(-20deg);
+  }
+  
+  .tool {
+    position: absolute;
+    width: 40px;
+    height: 10px;
+    background: #555;
+    top: 130px;
+    left: -35px;
+    transform: rotate(20deg);
+  }
+  
+  /* Message */
+  .message h1 {
+    font-size: 6rem;
+    margin: 0;
+    color: white;
+    text-shadow: 0 0 20px rgba(100, 220, 255, 0.8);
+    animation: pulse 2s infinite alternate;
+  }
+  
+  .message h2 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+    color: #ddd;
+  }
+  
+  .message p {
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    color: #aaa;
+    line-height: 1.6;
+  }
+  
+  @keyframes pulse {
+    from { text-shadow: 0 0 10px rgba(100, 220, 255, 0.5); }
+    to { text-shadow: 0 0 30px rgba(100, 220, 255, 1); }
+  }
+  
+  /* Button */
+  .home-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #3f51b5 0%, #2196f3 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+  }
+  
+  .home-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.6);
+  }
+  
+  .home-button:active {
+    transform: translateY(1px);
+  }
+  
+  .rocket-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+  
+  /* Satellite */
+  .satellite {
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    top: 30%;
+    right: 10%;
+    background: #555;
+    border-radius: 15px;
+    animation: float 15s infinite linear;
+  }
+  
+  .satellite::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 5px;
+    background: #777;
+    top: 50%;
+    left: -100px;
+    transform: translateY(-50%);
+  }
+  
+  .satellite::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 40px;
+    background: #666;
+    border-radius: 5px;
+    top: -5px;
+    right: -10px;
+  }
+  
+  @keyframes float {
+    0% { transform: translateX(0) translateY(0) rotate(0deg); }
+    25% { transform: translateX(-50px) translateY(20px) rotate(5deg); }
+    50% { transform: translateX(-100px) translateY(0) rotate(0deg); }
+    75% { transform: translateX(-50px) translateY(-20px) rotate(-5deg); }
+    100% { transform: translateX(0) translateY(0) rotate(0deg); }
+  }
+  
+  /* UFO */
+  .ufo {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    bottom: 20%;
+    left: 15%;
+    background: rgba(100, 220, 255, 0.3);
+    border-radius: 50%;
+    animation: hover 8s infinite ease-in-out;
+    box-shadow: 0 0 20px rgba(100, 220, 255, 0.5),
+                inset 0 0 20px rgba(100, 220, 255, 0.5);
+  }
+  
+  .ufo::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: rgba(100, 220, 255, 0.2);
+    border-radius: 50%;
+    top: 5px;
+    left: 10px;
+  }
+  
+  .ufo::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: rgba(100, 220, 255, 0.1);
+    border-radius: 50%;
+    bottom: -10px;
+    left: 0;
+    filter: blur(2px);
+  }
+  
+  @keyframes hover {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .message h1 {
+      font-size: 4rem;
+    }
+    
+    .message h2 {
+      font-size: 1.8rem;
+    }
+    
+    .message p {
+      font-size: 1rem;
+    }
+    
+    .astronaut {
+      width: 120px;
+      height: 160px;
+    }
+    
+    .helmet {
+      width: 80px;
+      height: 80px;
+      left: 20px;
+    }
+    
+    .visor {
+      width: 50px;
+      height: 30px;
+      top: 25px;
+      left: 15px;
+    }
+    
+    .body {
+      width: 60px;
+      height: 80px;
+      top: 70px;
+      left: 30px;
+    }
+    
+    .arm {
+      height: 60px;
+    }
+    
+    .galaxy {
+      width: 300px;
+      height: 300px;
+    }
+  }
+  
+  /* Additional space elements */
+  .space-container::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: 
+      radial-gradient(circle at 20% 30%, transparent 10%, rgba(138, 43, 226, 0.03) 20%, transparent 30%),
+      radial-gradient(circle at 80% 70%, transparent 10%, rgba(100, 220, 255, 0.03) 20%, transparent 30%);
+    animation: rotate 300s linear infinite;
+    z-index: 1;
+  }

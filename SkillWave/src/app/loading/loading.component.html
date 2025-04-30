@@ -1,0 +1,50 @@
+<div class="loading-overlay" *ngIf="!showNextComponent"  style="margin-top: 5em;">
+    <div class="loading-container">
+      <!-- SkillWave Logo -->
+      <div class="brand-mark">
+        <div class="logo-wrapper">
+          <span class="logo-icon">SW</span>
+        </div>
+        <h1 class="logo-text">SkillWave</h1>
+      </div>
+  
+      <!-- Service Explanation -->
+      <div class="service-info">
+        <h2>Learn Anything, Anytime, Anywhere</h2>
+        <p class="service-description">
+          SkillWave brings you world-class courses to master new skills, earn certifications, and advance your career.
+        </p>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feature-icon">📚</span>
+            <h3>10,000+ Courses</h3>
+            <p>From coding to cooking, explore a vast library.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">👩‍🏫</span>
+            <h3>Expert Instructors</h3>
+            <p>Learn from industry leaders and professionals.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">📱</span>
+            <h3>Flexible Learning</h3>
+            <p>Study on your schedule with our mobile app.</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Loading Spinner -->
+      <div class="loading-spinner">
+        <div class="spinner-dot"></div>
+        <div class="spinner-dot"></div>
+        <div class="spinner-dot"></div>
+        <div class="spinner-dot"></div>
+      </div>
+      <p class="loading-text">Loading your learning experience...</p>
+    </div>
+  </div>
+
+
+  <div *ngIf="showNextComponent">
+   <app-next-loading></app-next-loading>
+  </div>

@@ -1,0 +1,35 @@
+<div class="video-container" style="margin-top: 5em;">
+  <!-- Buttons above the video -->
+  <div class="video-controls">
+    <button class="action-button primary">
+      <svg viewBox="0 0 24 24" class="button-icon">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+      </svg>
+      Start Learning
+    </button>
+    <button class="action-button secondary">
+      <svg viewBox="0 0 24 24" class="button-icon">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+      </svg>
+      Need Help?
+    </button>
+  </div>
+
+  <!-- YouTube Video Embed -->
+  <div class="video-wrapper">
+    <iframe 
+      [src]="trailerUrl | sanitizeUrl"
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen
+      title="SkillWave Platform Trailer"
+      class="video-iframe"
+    ></iframe>
+  </div>
+
+  <!-- Loading indicator (optional) -->
+  <div class="loading-indicator">
+    <div class="spinner"></div>
+    <p>Loading SkillWave content...</p>
+  </div>
+</div>

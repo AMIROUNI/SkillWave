@@ -1,0 +1,110 @@
+<div class="auth-container">
+    <div class="auth-card">
+      <!-- Header Section -->
+      <div class="auth-header">
+        <div class="logo-container">
+          <svg class="logo-icon" viewBox="0 0 24 24">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+          </svg>
+          <h1 class="logo-text">SkillWave</h1>
+        </div>
+        <h2 class="auth-title">Welcome Back</h2>
+        <p class="auth-subtitle">Sign in to continue your learning journey</p>
+      </div>
+  
+      <!-- Form Section -->
+      <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()" class="auth-form">
+        <!-- Username Field -->
+        <div class="form-group">
+          <label for="username" class="form-label">
+            <span class="label-text">Username</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-container" [class.invalid]="isInvalidAndTouchedOrDirty(formLogin.controls.username)">
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 4a4 4 0 014 4 4 4 0 01-4 4 4 4 0 01-4-4 4 4 0 014-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z"/>
+              </svg>
+            </span>
+            <input 
+              type="text" 
+              id="username" 
+              formControlName="username" 
+              class="form-input"
+              placeholder="Enter your username"
+              autocomplete="username"
+            >
+          </div>
+          <div class="error-message" *ngIf="isInvalidAndTouchedOrDirty(formLogin.controls.username)">
+            <span *ngIf="formLogin.controls.username.hasError('required')">Username is required</span>
+            <span *ngIf="formLogin.controls.username.hasError('minlength')">Minimum 4 characters</span>
+          </div>
+        </div>
+  
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password" class="form-label">
+            <span class="label-text">Password</span>
+            <span class="required-indicator">*</span>
+          </label>
+          <div class="input-container" [class.invalid]="isInvalidAndTouchedOrDirty(formLogin.controls.password)">
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3a4 4 0 014 4v3h1a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2v-8a2 2 0 012-2h1V7a4 4 0 014-4zm0 2a2 2 0 00-2 2v3h4V7a2 2 0 00-2-2zm-1 9v6h2v-6h-2z"/>
+              </svg>
+            </span>
+            <input 
+              type="password" 
+              id="password" 
+              formControlName="password" 
+              class="form-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+            >
+            <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 9a3 3 0 013 3 3 3 0 01-3 3 3 3 0 01-3-3 3 3 0 013-3m0-4.5c5 0 9.27 3.11 11 7.5-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0017.64 0 9.821 9.821 0 00-17.64 0z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="error-message" *ngIf="isInvalidAndTouchedOrDirty(formLogin.controls.password)">
+            <span *ngIf="formLogin.controls.password.hasError('required')">Password is required</span>
+            <span *ngIf="formLogin.controls.password.hasError('minlength')">Minimum 8 characters</span>
+          </div>
+        </div>
+  
+        <!-- Remember Me & Forgot Password -->
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="rememberMe" class="checkbox-input">
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-label">Remember me</span>
+          </label>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" class="submit-button" [disabled]="formLogin.invalid">
+          <span class="button-text">Sign In</span>
+          <span class="button-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 17l5-5-5-5v10z"/>
+            </svg>
+          </span>
+        </button>
+  
+        <!-- Error Message -->
+        <div class="auth-error" *ngIf="errorMessage">
+          <svg viewBox="0 0 24 24">
+            <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+          </svg>
+          <span>{{ errorMessage }}</span>
+        </div>
+      </form>
+  
+      <!-- Footer Section -->
+      <div class="auth-footer">
+        <p class="footer-text">Don't have an account? <a routerLink="/register" class="footer-link">Sign up</a></p>
+      </div>
+    </div>
+  </div>

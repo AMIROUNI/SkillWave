@@ -1,0 +1,70 @@
+<form class="p-4" [formGroup]="signupForm" (ngSubmit)="onSubmit()" style="margin-top: 6em  ;">
+    <!-- Username Field -->
+    <div class="mb-3">
+      <label class="form-label">Username</label>
+      <input class="form-control" formControlName="username" type="text" placeholder="Enter username" 
+             [class.is-invalid]="isInvalidAndTouchedOrDirty(signupForm.controls.username)">
+      <small *ngIf="isInvalidAndTouchedOrDirty(signupForm.controls.username)" class="text-danger">
+        <ng-container *ngIf="signupForm.controls.username.hasError('required')">Username is required</ng-container>
+        <ng-container *ngIf="signupForm.controls.username.hasError('minlength')">Minimum length is 4 characters</ng-container>
+        <ng-container *ngIf="signupForm.controls.username.hasError('maxlength')">Maximum length is 20 characters</ng-container>
+      </small>
+    </div>
+  
+    <!-- Email Field -->
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input class="form-control" formControlName="email" type="email" placeholder="Enter email" 
+             [class.is-invalid]="isInvalidAndTouchedOrDirty(signupForm.controls.email )">
+      <small *ngIf="isInvalidAndTouchedOrDirty(signupForm.controls.email )" class="text-danger">
+        <ng-container *ngIf="signupForm.controls.email.hasError('required')">Email is required</ng-container>
+        <ng-container *ngIf="signupForm.controls.email.hasError('email')">Please enter a valid email</ng-container>
+      </small>
+    </div>
+  
+    <!-- Password Field -->
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input class="form-control" formControlName="password" type="password" placeholder="Enter password" 
+             [class.is-invalid]="isInvalidAndTouchedOrDirty(signupForm.controls.password )">
+      <small *ngIf="isInvalidAndTouchedOrDirty(signupForm.controls.password )" class="text-danger">
+        <ng-container *ngIf="signupForm.controls.password.hasError('required')">Password is required</ng-container>
+        <ng-container *ngIf="signupForm.controls.password.hasError('minlength')">Password must be at least 8 characters</ng-container>
+    
+      </small>
+    </div>
+  
+    <!-- Confirm Password Field -->
+    <div class="mb-3">
+      <label class="form-label">Confirm Password</label>
+      <input class="form-control" formControlName="confirmPassword" type="password" placeholder="Confirm password" 
+             [class.is-invalid]="isInvalidAndTouchedOrDirty(signupForm.controls.confirmPassword ) ">
+      <small *ngIf="isInvalidAndTouchedOrDirty(signupForm.controls.confirmPassword ) " class="text-danger">
+        <ng-container *ngIf="signupForm.controls.confirmPassword.hasError('required')">Please confirm your password</ng-container>
+        <ng-container *ngIf="passwordMatchValidator(signupForm)">Passwords do not match</ng-container>
+      </small>
+    </div>
+  
+
+    <div class="mb-3">
+      <label class="form-label">Role</label>
+      <select class="form-select" formControlName="role">
+        <option value="STUDENT">Student</option>
+        <option value="INSTRUCTOR">Instructor</option>
+        
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Avatar URL</label>
+      <input class="form-control" formControlName="avatarUrl" type="file" placeholder="Enter avatar URL">
+    </div>
+  
+    <div class="mb-3">
+      <label class="form-label">Bio</label>
+      <textarea class="form-control" formControlName="bio" placeholder="Enter bio" rows="3"></textarea>
+    </div>
+  
+
+    <button class="btn btn-primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+  </form>
