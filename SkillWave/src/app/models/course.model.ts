@@ -4,7 +4,7 @@ export interface Course {
     description: string;
     imageUrl?: string;
     price: number;
-    instructorId: number;
+    instructorId ?: number ;
     category: string;
     createdAt: Date;
     updatedAt: Date;

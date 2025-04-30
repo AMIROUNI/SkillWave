@@ -13,6 +13,8 @@ import { SanitizeUrlPipe } from './pipes/sanitize-url.pipe';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CardCourseComponent } from './course/card-course/card-course.component';
 import { CourseComponent } from './course/course.component';
+import { CourseManagementComponent } from './admin/course-management/course-management.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,13 +28,15 @@ import { CourseComponent } from './course/course.component';
     NotFoundComponent,
     CardCourseComponent,
     CourseComponent,
+    CourseManagementComponent,
   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    SanitizeUrlPipe
+    SanitizeUrlPipe,
+    HttpClientModule
 ],
   providers: [
     provideClientHydration(withEventReplay())
