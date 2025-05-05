@@ -1,5 +1,6 @@
 package com.example.skillwavebackend.Controllers;
 
+import com.example.skillwavebackend.Dto.UserProfileDTO;
 import com.example.skillwavebackend.Services.UserService;
 import com.example.skillwavebackend.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @GetMapping("/me/{email}")
+    public ResponseEntity<UserProfileDTO> getProfile(@PathVariable String email) {
+        UserProfileDTO profile = userService.getProfileByEmail(email);
+        return ResponseEntity.ok(profile);
+    }
+
 
     // --- Récupérer tous les utilisateurs ---
     @GetMapping

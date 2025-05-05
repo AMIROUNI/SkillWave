@@ -14,6 +14,10 @@ public class User {
 
     private String username;
 
+    private  String fullName;
+
+
+
     private String email;
 
     private String password;
@@ -22,9 +26,16 @@ public class User {
 
     private String avatarUrl;
 
+
+
+    private String phone;
+
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
     @Column(columnDefinition = "TEXT")
     private String bio;
+
+
+
 }

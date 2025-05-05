@@ -1,5 +1,6 @@
 package com.example.skillwavebackend.Controllers;
 
+import com.example.skillwavebackend.Dto.LoginDto;
 import com.example.skillwavebackend.Enum.UserRole;
 import com.example.skillwavebackend.models.User;
 import com.example.skillwavebackend.Services.UserService;
@@ -39,14 +40,20 @@ public class AuthController {
 
     // LOGIN (simplifié)
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User loginData) {
+    public ResponseEntity<?> loginUser(@RequestBody User loginData) {
         User user = userService.getUserByEmail(loginData.getEmail());
+        LoginDto loginDto = new LoginDto();
+        loginDto.setId(user.getId());
+        loginDto.setEmail(user.getEmail());
+        loginDto.setAvatarUrl(user.getAvatarUrl());
+        loginDto.setRole(user.getRole().name());
         if (user != null && user.getPassword().equals(loginData.getPassword())) {
             return ResponseEntity
-                    .ok("Login successful!");
+                    .status(HttpStatus.OK)
+                    .body(loginDto);
         }
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body("Invalid email or password!");
+                .body(loginDto);
     }
 }

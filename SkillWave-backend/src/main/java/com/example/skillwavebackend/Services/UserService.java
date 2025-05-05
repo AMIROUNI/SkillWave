@@ -1,5 +1,7 @@
 package com.example.skillwavebackend.Services;
 
+import com.example.skillwavebackend.Dto.UserProfileDTO;
+import com.example.skillwavebackend.Exception.UsernameNotFoundException;
 import com.example.skillwavebackend.Repositories.UserRepository;
 import com.example.skillwavebackend.models.User;
 
@@ -48,4 +50,20 @@ public class UserService {
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
     }
+    public UserProfileDTO getProfileByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        UserProfileDTO dto = new UserProfileDTO();
+        dto.setId(user.getId());
+        dto.setFullName(user.getFullName());
+        dto.setEmail(user.getEmail());
+        dto.setAvatarUrl(user.getAvatarUrl());
+        dto.setRole(user.getRole().name());
+        dto.setBio(user.getBio());
+        dto.setPhone(user.getPhone());
+
+        return dto;
+    }
+
 }
