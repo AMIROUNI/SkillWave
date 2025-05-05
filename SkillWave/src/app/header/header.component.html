@@ -17,10 +17,18 @@
       <button class="menu-button" (click)="toggleMenu()" aria-label="Toggle menu">
         <span class="menu-icon"></span>
       </button>
-  
+      
       <!-- CTA Button -->
+     <div *ngIf="!isLoggedIn">
       <a href="/signup" class="cta-button">Get Started</a>
       <a href="/signin" class="cta-button">Signin</a>
+    </div>
+
+    <div *ngIf="isLoggedIn">
+      <a  (click)="signout()" class="cta-button">signout</a>
+      <img [src]="user?.avatarUrl" alt="User Avatar" class="user-avatar">
+
+    </div>
     </div>
   
     <!-- Mobile Navigation -->

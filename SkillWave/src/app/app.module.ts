@@ -15,6 +15,7 @@ import { CardCourseComponent } from './course/card-course/card-course.component'
 import { CourseComponent } from './course/course.component';
 import { CourseManagementComponent } from './admin/course-management/course-management.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     CardCourseComponent,
     CourseComponent,
     CourseManagementComponent,
+    MyProfileComponent,
   
   ],
   imports: [

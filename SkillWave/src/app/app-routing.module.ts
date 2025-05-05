@@ -7,6 +7,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CourseComponent } from './course/course.component';
 import { CourseManagementComponent } from './admin/course-management/course-management.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const routes: Routes = [
   {path:'',component:LoadingComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
    {path:'signup',component:SignupComponent}, 
    {path:'courses',component:CourseComponent},
    {path:'admin/course-management',component:CourseManagementComponent},
+   {path:'my-profile',component:MyProfileComponent},
           
   {
     path: '**', component: NotFoundComponent

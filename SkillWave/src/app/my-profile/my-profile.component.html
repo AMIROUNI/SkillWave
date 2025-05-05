@@ -1,0 +1,118 @@
+<div *ngIf="user" class="profile-container galaxy-theme">
+    <div class="profile-card">
+      <div class="profile-banner">
+        <div class="banner-stars"></div>
+        <div class="banner-planet"></div>
+      </div>
+      
+      <div class="profile-content">
+        <div class="profile-header">
+          <div class="avatar-container">
+            <img [src]="user.avatarUrl || 'https://via.placeholder.com/150'" alt="Avatar" class="avatar">
+            <button class="edit-avatar-btn" (click)="openAvatarEditor()">
+              <i class="fas fa-camera"></i>
+            </button>
+          </div>
+          <div class="profile-info">
+            <h2 class="profile-name">{{ user.fullName }}</h2>
+            <div class="profile-role">
+              <i class="fas fa-user-astronaut"></i>
+              <span>{{ user.role }}</span>
+            </div>
+            <div class="profile-stats">
+              <div class="stat-item">
+                <i class="fas fa-star"></i>
+                <span>4.8</span>
+              </div>
+              <div class="stat-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Orion Sector</span>
+              </div>
+              <div class="stat-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Member since 2022</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="profile-actions">
+          <button class="btn btn-edit">
+            <i class="fas fa-user-edit"></i> Edit Profile
+          </button>
+          <button class="btn btn-message">
+            <i class="fas fa-comment-dots"></i> Message
+          </button>
+          <button class="btn btn-share">
+            <i class="fas fa-share-alt"></i> Share
+          </button>
+        </div>
+  
+        <div class="profile-details">
+          <div class="detail-section">
+            <h3 class="section-title">
+              <i class="fas fa-id-card"></i> Personal Information
+            </h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label><i class="fas fa-user-tag"></i> Username</label>
+                <p>{{ user.username }}</p>
+              </div>
+              <div class="detail-item">
+                <label><i class="fas fa-envelope"></i> Email</label>
+                <p>{{ user.email }}</p>
+              </div>
+              <div class="detail-item">
+                <label><i class="fas fa-phone"></i> Phone</label>
+                <p>{{ user.phone || 'Not provided' }}</p>
+              </div>
+              <div class="detail-item">
+                <label><i class="fas fa-globe"></i> Language</label>
+                <p>English (Galactic Standard)</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="detail-section">
+            <h3 class="section-title">
+              <i class="fas fa-info-circle"></i> About
+            </h3>
+            <div class="bio-content">
+              <p>{{ user.bio || 'No biography provided yet. Click edit to add one.' }}</p>
+            </div>
+          </div>
+  
+          <div class="detail-section">
+            <h3 class="section-title">
+              <i class="fas fa-rocket"></i> Space Achievements
+            </h3>
+            <div class="achievements">
+              <div class="achievement-badge">
+                <i class="fas fa-medal"></i>
+                <span>Nebula Explorer</span>
+              </div>
+              <div class="achievement-badge">
+                <i class="fas fa-medal"></i>
+                <span>Black Hole Pioneer</span>
+              </div>
+              <div class="achievement-badge">
+                <i class="fas fa-medal"></i>
+                <span>Zero Gravity Master</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="!user" class="loading-container galaxy-theme">
+    <div class="loading-content">
+      <div class="spinner">
+        <div class="spinner-planet"></div>
+        <div class="spinner-orbit"></div>
+      </div>
+      <h3>Loading Galactic Profile...</h3>
+      <p>Establishing connection with the mothership</p>
+    </div>
+  </div>

@@ -1,10 +1,11 @@
 export interface User {
-   
-    username?: string;
-    email: string;
-    password?: string; // Optional when fetching
-    role?: 'STUDENT' | 'INSTRUCTOR' | 'ADMIN';
-    avatarUrl?: string;
-    bio?: string;
-  }
-  
+  id?: number;
+  username?: string;
+  fullName?: string;
+  email: string;
+  password?: string;
+  role?: 'STUDENT' | 'INSTRUCTOR' | 'ADMIN';
+  avatarUrl?: string;
+  bio?: string;
+  phone?: string;
+}

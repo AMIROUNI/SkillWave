@@ -260,3 +260,12 @@
   .cta-button:active, .mobile-cta-button:active {
     transform: scale(0.98);
   }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 1rem;
+  }
+  

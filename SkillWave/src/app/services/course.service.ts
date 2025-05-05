@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Course } from '../models/course.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,8 @@ export class CourseService {
 
   private baseUrl = 'http://localhost:8095/api/courses'; // Adjust the URL as needed
 
-  getAllCourses() {
-    return this.httpClinet.get(this.baseUrl);
+  getAllCourses() : Observable<Course[]> {
+    return this.httpClinet.get<Course[]>(this.baseUrl);
   }
 
 
