@@ -1,13 +1,40 @@
 type Query {
     users: [User]
     userById(id: ID!): User
+    getProjectById(id: ID!): Project
+    getAllProjects: [Project]
 }
 
 type Mutation {
     signUp(name: String!, email: String!, password: String!): User!
-    signIn(email: String!, password: String!): String!
+    signIn(email: String!, password: String!): User
     updateUser(id: ID!, name: String, email: String, phone: String, bio: String): User
     deleteUser(id: ID!): Boolean
+
+    addProject(
+        title: String!,
+        description: String!,
+        clientId: ID!,
+        budget: Float,
+        duration: String,
+        deadline: String,
+        postedAt: String,
+        status: String,
+        requiredSkills: [String]
+    ): Project
+
+    updateProject(
+        id: ID!,
+        title: String,
+        description: String,
+        budget: Float,
+        duration: String,
+        deadline: String,
+        status: String,
+        requiredSkills: [String]
+    ): Project
+
+    deleteProject(id: ID!): Boolean
 }
 
 type User {
@@ -20,4 +47,16 @@ type User {
     phone: String
     role: String
     bio: String
+}
+type Project {
+    id: ID!
+    title: String
+    description: String
+    client: User
+    budget: Float
+    duration: String
+    deadline: String
+    postedAt: String
+    status: String
+    requiredSkills: [String]
 }

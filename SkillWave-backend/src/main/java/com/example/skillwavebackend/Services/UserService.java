@@ -46,6 +46,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
+
+
+    public User findByCredentials(String email, String password) {
+        return userRepository.findByEmail(email)
+                .filter(user -> passwordEncoder.matches(password, user.getPassword()))
+                .orElse(null);
+    }
+
+
     // Sign In logic (returns token or success message)
     public String authenticateUser(String email, String password) {
         return userRepository.findByEmail(email)

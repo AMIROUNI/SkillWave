@@ -35,9 +35,10 @@ public class UserResolver {
     }
 
     @SchemaMapping(typeName = "Mutation", field = "signIn")
-    public String signIn(@Argument String email, @Argument String password) {
-        return userService.authenticateUser(email, password);
+    public User signIn(@Argument String email, @Argument String password) {
+        return userService.findByCredentials(email, password);
     }
+
 
     @SchemaMapping(typeName = "Mutation", field = "updateUser")
     public User updateUser(
