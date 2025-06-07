@@ -1,6 +1,0 @@
-type Enrollment {
-    id: ID!
-    course: Course
-    student: User
-    enrolledAt: String
-}

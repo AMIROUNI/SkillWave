@@ -1,0 +1,267 @@
+enum ContractStatus {
+    ACTIVE
+    COMPLETED
+    TERMINATED
+}
+
+enum BidStatus {
+    PENDING
+    ACCEPTED
+    REJECTED
+}
+
+enum MilestoneStatus {
+    PENDING
+    APPROVED
+    PAID
+}
+
+type User {
+    id: ID!
+    name: String
+    fullName: String
+    email: String
+    password: String
+    avatarUrl: String
+    phone: String
+    role: String
+    bio: String
+}
+
+type Project {
+    id: ID!
+    title: String
+    description: String
+    client: User
+    budget: Float
+    duration: String
+    deadline: String
+    postedAt: String
+    status: String
+    requiredSkills: [String]
+}
+
+type Milestone {
+    id: ID!
+    title: String!
+    description: String!
+    dueDate: String!
+    completed: Boolean!
+    amount: Float
+    status: MilestoneStatus
+}
+
+type Lesson {
+    id: ID!
+    title: String!
+    content: String!
+    videoUrl: String
+    lessonOrder: Int
+    course: Course
+}
+
+type Enrollment {
+    id: ID!
+    course: Course
+    student: User
+    enrolledAt: String
+}
+
+type Course {
+    id: ID!
+    title: String
+    description: String
+    imageUrl: String
+    price: Float
+    category: String
+    instructor: User
+    createdAt: String
+    updatedAt: String
+}
+
+type Contract {
+    id: ID!
+    project: Project
+    freelancer: User
+    agreedAmount: Float
+    startDate: String
+    endDate: String
+    status: ContractStatus
+    milestones: [Milestone]
+}
+
+type Bid {
+    id: ID!
+    project: Project
+    freelancer: User
+    amount: Float
+    proposal: String
+    submittedAt: String
+    deliveryDays: Int
+    status: BidStatus
+}
+
+type Query {
+    users: [User]
+    userById(id: ID!): User
+
+    getAllProjects: [Project]
+    getProjectById(id: ID!): Project
+
+    getAllCourses: [Course]
+    getCourseById(id: ID!): Course
+
+    getAllLessons: [Lesson]
+    getLessonById(id: ID!): Lesson
+
+    getAllContracts: [Contract]
+    getContractById(id: ID!): Contract
+    getContractsByFreelancerId(freelancerId: ID!): [Contract]
+    getContractsByClientId(clientId: ID!): [Contract]
+    getContractsByStatus(status: ContractStatus!): [Contract]
+    getContractByProjectId(projectId: ID!): Contract
+
+    getAllBids: [Bid]
+    getBidById(id: ID!): Bid
+    getBidsByProjectId(projectId: ID!): [Bid]
+    getBidsByFreelancerId(freelancerId: ID!): [Bid]
+    getBidsByStatus(status: BidStatus!): [Bid]
+    hasFreelancerBid(projectId: ID!, freelancerId: ID!): Boolean
+
+    getAllEnrollments: [Enrollment]
+    getEnrollmentById(id: ID!): Enrollment
+
+    getAllMilestones: [Milestone]
+    getMilestoneById(id: ID!): Milestone
+    getMilestonesByContractId(contractId: ID!): [Milestone]
+    getMilestonesByFreelancerId(freelancerId: ID!): [Milestone]
+    getMilestonesByStatus(status: MilestoneStatus!): [Milestone]
+}
+
+type Mutation {
+    signUp(name: String!, email: String!, password: String!): User!
+    signIn(email: String!, password: String!): User
+
+    updateUser(id: ID!, name: String, email: String, phone: String, bio: String): User
+    deleteUser(id: ID!): Boolean
+
+    addProject(
+        title: String!
+        description: String!
+        clientId: ID!
+        budget: Float
+        duration: String
+        deadline: String
+        postedAt: String
+        status: String
+        requiredSkills: [String]
+    ): Project
+
+    updateProject(
+        id: ID!
+        title: String
+        description: String
+        budget: Float
+        duration: String
+        deadline: String
+        status: String
+        requiredSkills: [String]
+    ): Project
+
+    deleteProject(id: ID!): Boolean
+
+    createCourse(
+        title: String!
+        description: String!
+        imageUrl: String
+        price: Float!
+        category: String!
+        instructorId: ID!
+    ): Course
+
+    updateCourse(
+        id: ID!
+        title: String
+        description: String
+        imageUrl: String
+        price: Float
+        category: String
+        instructorId: ID
+    ): Course
+
+    deleteCourse(id: ID!): Boolean
+
+    addLesson(
+        title: String!
+        content: String!
+        videoUrl: String
+        lessonOrder: Int
+        courseId: ID!
+    ): Lesson
+
+    updateLesson(
+        id: ID!
+        title: String!
+        content: String!
+        videoUrl: String
+        lessonOrder: Int
+        courseId: ID!
+    ): Lesson
+
+    deleteLesson(id: ID!): Boolean
+
+    createContract(
+        projectId: ID!
+        freelancerId: ID!
+        agreedAmount: Float!
+    ): Contract
+
+    updateContract(
+        id: ID!
+        agreedAmount: Float
+        endDate: String
+        status: ContractStatus
+    ): Contract
+
+    deleteContract(id: ID!): Boolean
+
+    createBid(
+        projectId: ID!
+        freelancerId: ID!
+        amount: Float!
+        proposal: String!
+        deliveryDays: Int!
+    ): Bid
+
+    updateBid(
+        id: ID!
+        amount: Float
+        proposal: String
+        deliveryDays: Int
+        status: BidStatus
+    ): Bid
+
+    deleteBid(id: ID!): Boolean
+
+    createEnrollment(courseId: ID!, studentId: ID!): Enrollment
+    deleteEnrollment(id: ID!): Boolean
+
+    createMilestone(
+        contractId: ID!
+        title: String!
+        description: String!
+        amount: Float!
+        dueDate: String!
+    ): Milestone
+
+    updateMilestone(
+        id: ID!
+        title: String
+        description: String
+        amount: Float
+        dueDate: String
+        status: MilestoneStatus
+    ): Milestone
+
+    deleteMilestone(id: ID!): Boolean
+}

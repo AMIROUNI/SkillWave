@@ -1,8 +1,0 @@
-type Lesson {
-    id: ID!
-    title: String!
-    content: String!
-    videoUrl: String
-    lessonOrder: Int
-    course: Course
-}
