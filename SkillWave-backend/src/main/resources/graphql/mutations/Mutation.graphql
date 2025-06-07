@@ -95,4 +95,26 @@ type Mutation {
 
     createEnrollment(courseId: ID!, studentId: ID!): Enrollment
     deleteEnrollment(id: ID!): Boolean
+
+
+
+    createMilestone(
+        contractId: ID!,
+        title: String!,
+        description: String!,
+        amount: Float!,
+        dueDate: String!
+    ): Milestone
+
+    updateMilestone(
+        id: ID!,
+        title: String,
+        description: String,
+        amount: Float,
+        dueDate: String,
+        status: MilestoneStatus
+    ): Milestone
+
+    deleteMilestone(id: ID!): Boolean
+
 }

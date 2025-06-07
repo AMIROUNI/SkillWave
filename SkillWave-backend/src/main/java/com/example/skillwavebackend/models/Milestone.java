@@ -23,5 +23,5 @@ public class Milestone {
     private Date dueDate;
 
     @Enumerated(EnumType.STRING)
-    private MilestoneStatus status; // PENDING, APPROVED, PAID
+    private MilestoneStatus status;
 }

@@ -27,7 +27,7 @@ public class Contract {
     private Date endDate;
 
     @Enumerated(EnumType.STRING)
-    private ContractStatus status; // ACTIVE, COMPLETED, TERMINATED
+    private ContractStatus status;
 
     @OneToMany(mappedBy = "contract")
     private Set<Milestone> milestones;

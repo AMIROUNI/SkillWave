@@ -27,6 +27,14 @@ type Query {
 
     getAllEnrollments: [Enrollment]
     getEnrollmentById(id: ID!): Enrollment
+
+
+    getAllMilestones: [Milestone]
+    getMilestoneById(id: ID!): Milestone
+    getMilestonesByContractId(contractId: ID!): [Milestone]
+    getMilestonesByFreelancerId(freelancerId: ID!): [Milestone]
+    getMilestonesByStatus(status: MilestoneStatus!): [Milestone]
+
 }
 
 
