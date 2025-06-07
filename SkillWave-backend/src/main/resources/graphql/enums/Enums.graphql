@@ -1,0 +1,11 @@
+enum ContractStatus {
+    ACTIVE
+    COMPLETED
+    TERMINATED
+}
+
+enum BidStatus {
+    PENDING
+    ACCEPTED
+    REJECTED
+}

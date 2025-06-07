@@ -1,0 +1,12 @@
+type Project {
+    id: ID!
+    title: String
+    description: String
+    client: User
+    budget: Float
+    duration: String
+    deadline: String
+    postedAt: String
+    status: String
+    requiredSkills: [String]
+}

@@ -1,0 +1,32 @@
+type Query {
+    users: [User]
+    userById(id: ID!): User
+
+    getAllProjects: [Project]
+    getProjectById(id: ID!): Project
+
+    getAllCourses: [Course]
+    getCourseById(id: ID!): Course
+
+    getAllLessons: [Lesson]
+    getLessonById(id: ID!): Lesson
+
+    getAllContracts: [Contract]
+    getContractById(id: ID!): Contract
+    getContractsByFreelancerId(freelancerId: ID!): [Contract]
+    getContractsByClientId(clientId: ID!): [Contract]
+    getContractsByStatus(status: ContractStatus!): [Contract]
+    getContractByProjectId(projectId: ID!): Contract
+
+    getAllBids: [Bid]
+    getBidById(id: ID!): Bid
+    getBidsByProjectId(projectId: ID!): [Bid]
+    getBidsByFreelancerId(freelancerId: ID!): [Bid]
+    getBidsByStatus(status: BidStatus!): [Bid]
+    hasFreelancerBid(projectId: ID!, freelancerId: ID!): Boolean
+
+    getAllEnrollments: [Enrollment]
+    getEnrollmentById(id: ID!): Enrollment
+}
+
+

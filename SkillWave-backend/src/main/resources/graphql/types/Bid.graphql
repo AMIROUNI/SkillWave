@@ -1,0 +1,10 @@
+type Bid {
+    id: ID!
+    project: Project
+    freelancer: User
+    amount: Float
+    proposal: String
+    submittedAt: String
+    deliveryDays: Int
+    status: BidStatus
+}

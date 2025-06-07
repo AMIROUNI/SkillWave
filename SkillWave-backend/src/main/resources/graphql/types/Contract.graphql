@@ -1,0 +1,10 @@
+type Contract {
+    id: ID!
+    project: Project
+    freelancer: User
+    agreedAmount: Float
+    startDate: String
+    endDate: String
+    status: ContractStatus
+    milestones: [Milestone]
+}
