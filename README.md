@@ -26,6 +26,7 @@ SkillWave est un backend de plateforme web dédiée aux freelances, permettant u
 | MySQL        | Base de données relationnelle      |
 | Lombok            | Réduction du code boilerplate      |
 | JPA / Hibernate   | Mapping objet-relationnel          |
+| angular           | frontend                 |
 
 ---
 
