@@ -10,7 +10,7 @@ SkillWave est un backend de plateforme web dédiée aux freelances, permettant u
 
 - 🔐 **Authentification** : inscription, connexion sécurisée  
 - 👤 **Gestion des utilisateurs** : création, mise à jour, suppression, consultation  
-- 💼 **Portfolio** : gestion des projets réalisés avec image, URL, description  
+- 💼 **MySQL** : gestion des projets réalisés avec image, URL, description  
 - 📚 **Cours et avis** : publication de cours et feedback des utilisateurs  
 - 🛠️ **Compétences et rôles** : classification des utilisateurs (freelance, client, admin)  
 - 📦 **GraphQL API** : backend puissant et typé avec Spring Boot + GraphQL  
@@ -23,7 +23,7 @@ SkillWave est un backend de plateforme web dédiée aux freelances, permettant u
 |-------------------|-----------------------------------|
 | Java / Spring Boot | Backend REST/GraphQL robuste      |
 | GraphQL           | Requêtes typées et efficaces       |
-| PostgreSQL        | Base de données relationnelle      |
+| MySQL        | Base de données relationnelle      |
 | Lombok            | Réduction du code boilerplate      |
 | JPA / Hibernate   | Mapping objet-relationnel          |
 
