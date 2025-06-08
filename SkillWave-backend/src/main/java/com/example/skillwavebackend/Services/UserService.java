@@ -41,7 +41,7 @@ public class UserService {
                 .name(name)
                 .email(email)
                 .password(encodedPassword)
-                .role(UserRole.STUDENT)
+                .role(UserRole.FREELANCER)
                 .build();
         return userRepository.save(user);
     }

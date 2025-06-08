@@ -10,4 +10,6 @@ import java.util.List;
 public interface PortfolioItemRepository extends JpaRepository<PortfolioItem, Long> {
     List<PortfolioItem> findByFreelancerId(Long freelancerId);
     List<PortfolioItem> findByTitleContainingIgnoreCase(String keyword);
+
+
 }

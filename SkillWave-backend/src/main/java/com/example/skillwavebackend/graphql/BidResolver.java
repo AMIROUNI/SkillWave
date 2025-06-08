@@ -65,21 +65,24 @@ public class BidResolver {
             @Argument String proposal,
             @Argument Integer deliveryDays
     ) {
-        Project project = projectRepository.findById(projectId).orElse(null);
-        User freelancer = userRepository.findById(freelancerId).orElse(null);
+        try {
+            Project project = projectRepository.findById(projectId).orElseThrow(() -> new RuntimeException("Invalid project ID"));
+            User freelancer = userRepository.findById(freelancerId).orElseThrow(() -> new RuntimeException("Invalid freelancer ID"));
 
-        if (project == null || freelancer == null) {
-            throw new RuntimeException("Invalid project or freelancer ID");
+            Bid bid = new Bid();
+            bid.setProject(project);
+            bid.setFreelancer(freelancer);
+            bid.setAmount(amount);
+            bid.setProposal(proposal);
+            bid.setDeliveryDays(deliveryDays);
+            bid.setSubmittedAt(new Date()); // Ajoutez ceci si `submittedAt` est requis
+
+            return bidService.createBid(bid);
+        } catch (Exception e) {
+            // Ajoutez ceci pour logguer l'erreur dans la console
+            e.printStackTrace();
+            throw new RuntimeException("Failed to create bid: " + e.getMessage());
         }
-
-        Bid bid = new Bid();
-        bid.setProject(project);
-        bid.setFreelancer(freelancer);
-        bid.setAmount(amount);
-        bid.setProposal(proposal);
-        bid.setDeliveryDays(deliveryDays);
-
-        return bidService.createBid(bid);
     }
 
     @SchemaMapping(typeName = "Mutation", field = "updateBid")

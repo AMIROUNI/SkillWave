@@ -1,7 +1,5 @@
 package com.example.skillwavebackend.Services;
 
-
-
 import com.example.skillwavebackend.Repositories.PortfolioItemRepository;
 import com.example.skillwavebackend.models.PortfolioItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,45 +15,34 @@ public class PortfolioItemService {
     @Autowired
     private PortfolioItemRepository portfolioItemRepository;
 
-    // Get all portfolio items
-    public List<PortfolioItem> getAllPortfolioItems() {
+    public List<PortfolioItem> getAllItems() {
         return portfolioItemRepository.findAll();
     }
 
-    // Get portfolio item by ID
-    public Optional<PortfolioItem> getPortfolioItemById(Long id) {
+    public Optional<PortfolioItem> getItemById(Long id) {
         return portfolioItemRepository.findById(id);
     }
 
-    // Get portfolio items by freelancer ID
-    public List<PortfolioItem> getPortfolioItemsByFreelancerId(Long freelancerId) {
+    public List<PortfolioItem> getItemsByFreelancerId(Long freelancerId) {
         return portfolioItemRepository.findByFreelancerId(freelancerId);
     }
 
-    // Search portfolio items by title
-    public List<PortfolioItem> searchPortfolioItemsByTitle(String keyword) {
-        return portfolioItemRepository.findByTitleContainingIgnoreCase(keyword);
+    public PortfolioItem createItem(PortfolioItem item) {
+        item.setCompletedDate(new Date()); // Set current date
+        return portfolioItemRepository.save(item);
     }
 
-    // Create a new portfolio item
-    public PortfolioItem createPortfolioItem(PortfolioItem portfolioItem) {
-        portfolioItem.setCompletedDate(new Date());
-        return portfolioItemRepository.save(portfolioItem);
-    }
-
-    // Update portfolio item
-    public PortfolioItem updatePortfolioItem(Long id, PortfolioItem updatedPortfolioItem) {
-        return portfolioItemRepository.findById(id).map(portfolioItem -> {
-            if (updatedPortfolioItem.getTitle() != null) portfolioItem.setTitle(updatedPortfolioItem.getTitle());
-            if (updatedPortfolioItem.getDescription() != null) portfolioItem.setDescription(updatedPortfolioItem.getDescription());
-            if (updatedPortfolioItem.getImageUrl() != null) portfolioItem.setImageUrl(updatedPortfolioItem.getImageUrl());
-            if (updatedPortfolioItem.getProjectUrl() != null) portfolioItem.setProjectUrl(updatedPortfolioItem.getProjectUrl());
-            return portfolioItemRepository.save(portfolioItem);
+    public PortfolioItem updateItem(Long id, PortfolioItem updatedItem) {
+        return portfolioItemRepository.findById(id).map(item -> {
+            if (updatedItem.getTitle() != null) item.setTitle(updatedItem.getTitle());
+            if (updatedItem.getDescription() != null) item.setDescription(updatedItem.getDescription());
+            if (updatedItem.getImageUrl() != null) item.setImageUrl(updatedItem.getImageUrl());
+            if (updatedItem.getProjectUrl() != null) item.setProjectUrl(updatedItem.getProjectUrl());
+            return portfolioItemRepository.save(item);
         }).orElse(null);
     }
 
-    // Delete portfolio item
-    public boolean deletePortfolioItem(Long id) {
+    public boolean deleteItem(Long id) {
         if (portfolioItemRepository.existsById(id)) {
             portfolioItemRepository.deleteById(id);
             return true;

@@ -3,6 +3,13 @@ enum ContractStatus {
     COMPLETED
     TERMINATED
 }
+enum ProjectStatus {
+    OPEN
+    IN_PROGRESS
+    COMPLETED
+    CANCELLED
+
+}
 
 enum BidStatus {
     PENDING
@@ -26,6 +33,24 @@ type User {
     phone: String
     role: String
     bio: String
+}
+
+type PortfolioItem {
+    id: ID!
+    freelancer: User
+    title: String
+    description: String
+    imageUrl: String
+    projectUrl: String
+    completedDate: String
+}
+type Review {
+    id: ID!
+    rating: Int
+    comment: String
+    course: Course
+    student: User
+    createdAt: String
 }
 
 type Project {
@@ -136,6 +161,17 @@ type Query {
     getMilestonesByContractId(contractId: ID!): [Milestone]
     getMilestonesByFreelancerId(freelancerId: ID!): [Milestone]
     getMilestonesByStatus(status: MilestoneStatus!): [Milestone]
+
+
+    getAllReviews: [Review]
+    getReviewById(id: ID!): Review
+    getReviewsByCourseId(courseId: ID!): [Review]
+    getReviewsByStudentId(studentId: ID!): [Review]
+
+
+    getAllPortfolioItems: [PortfolioItem]
+    getPortfolioItemById(id: ID!): PortfolioItem
+    getPortfolioItemsByFreelancerId(freelancerId: ID!): [PortfolioItem]
 }
 
 type Mutation {
@@ -264,4 +300,27 @@ type Mutation {
     ): Milestone
 
     deleteMilestone(id: ID!): Boolean
+
+    createReview(rating: Int!, comment: String!, courseId: ID!, studentId: ID!): Review
+    updateReview(id: ID!, rating: Int, comment: String): Review
+    deleteReview(id: ID!): Boolean
+
+
+    createPortfolioItem(
+        title: String!
+        description: String!
+        imageUrl: String!
+        projectUrl: String!
+        freelancerId: ID!
+    ): PortfolioItem
+
+    updatePortfolioItem(
+        id: ID!
+        title: String
+        description: String
+        imageUrl: String
+        projectUrl: String
+    ): PortfolioItem
+
+    deletePortfolioItem(id: ID!): Boolean
 }
