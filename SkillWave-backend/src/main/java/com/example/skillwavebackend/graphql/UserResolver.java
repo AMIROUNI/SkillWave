@@ -15,7 +15,7 @@ public class UserResolver {
     @Autowired
     private UserService userService;
 
-    // === QUERIES ===
+    // ===**************************************** QUERIES ===
 
     @SchemaMapping(typeName = "Query", field = "users")
     public List<User> getUsers() {
@@ -27,7 +27,7 @@ public class UserResolver {
         return userService.getUserById(id);
     }
 
-    // === MUTATIONS ===
+    // === ************************************MUTATIONS ===
 
     @SchemaMapping(typeName = "Mutation", field = "signUp")
     public User signUp(@Argument String name, @Argument String email, @Argument String password) {
