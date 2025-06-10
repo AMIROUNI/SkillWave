@@ -37,14 +37,7 @@
     </div>
   </div>
 
-  <!-- Confirm Password -->
-  <div class="mb-3">
-    <label class="form-label">Confirm Password</label>
-    <input type="password" class="form-control" formControlName="confirmPassword"
-           [class.is-invalid]="signupForm.get('confirmPassword')?.dirty ">
 
-      <small>Passwords do not match</small>
-    </div>
   
   <!-- Role -->
   <div class="mb-3">
@@ -52,10 +45,12 @@
     <select class="form-select" formControlName="role">
       <option value="STUDENT">Student</option>
       <option value="INSTRUCTOR">Instructor</option>
+      <option value="INSTRUCTOR">FREELANCER</option>
+      <option value="INSTRUCTOR">CLIENT</option>
     </select>
   </div>
 
-  <!-- Avatar Upload -->
+  <!-- Avatar Upload 
   <div class="mb-3">
     <label class="form-label">Avatar</label>
     <div class="d-flex align-items-center gap-2">
@@ -70,7 +65,7 @@
     <div *ngIf="previewUrl" class="mt-2">
       <img [src]="previewUrl" alt="Preview" class="img-thumbnail" style="max-width: 150px;">
     </div>
-  </div>
+  </div>-->  
 
   <!-- Bio -->
   <div class="mb-3">
@@ -79,7 +74,7 @@
   </div>
 
   <!-- Submit Button -->
-  <button type="submit" class="btn btn-primary" [disabled]="loading || signupForm.invalid">
+  <button type="submit" class="btn btn-primary" >
     <span *ngIf="!loading">Sign Up</span>
     <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"></span>
   </button>

@@ -1,9 +1,11 @@
 // src/app/services/auth.service.ts
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Observable, BehaviorSubject, tap, map } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+
 export interface LoginPayload {
   email: string;
   password: string;
@@ -13,39 +15,63 @@ export interface LoginPayload {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8095/api/auth';
+  private apiUrl = 'http://localhost:8095/graphql'; // GraphQL endpoint
   private emailKey = 'user_email';
 
-  // Émission du statut de connexion (email ou null)
   private currentEmailSubject = new BehaviorSubject<string | null>(this.getEmailFromStorage());
   public currentEmail$ = this.currentEmailSubject.asObservable();
 
-  constructor(private http: HttpClient,private router :Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
-  /** POST /register */
+  /** MUTATION: signUp */
   register(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/register`, user);
+    const mutation = `
+      mutation {
+        signUp(name: "${user.name}", email: "${user.email}", password: "${user.password}") {
+          id
+          name
+          email
+          role
+        }
+      }
+    `;
+
+    return this.http.post<any>(this.apiUrl, { query: mutation }).pipe(
+      map(response => response.data.signUp)
+    );
   }
 
-  /** POST /login */
+  /** MUTATION: signIn */
   login(payload: LoginPayload): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/login`, payload)
-      .pipe(
-        tap(user => {
-        
+    const query = `
+      mutation {
+        signIn(email: "${payload.email}", password: "${payload.password}") {
+          id
+          name
+          email
+          role
+        }
+      }
+    `;
+
+    return this.http.post<any>(this.apiUrl, { query }).pipe(
+      map(response => response.data.signIn),
+      tap(user => {
+        if (user) {
           localStorage.setItem(this.emailKey, user.email);
+          localStorage.setItem("user", JSON.stringify(user));
           this.currentEmailSubject.next(user.email);
-        })
-      );
+        }
+      })
+    );
   }
 
   logout(): void {
     localStorage.removeItem(this.emailKey);
-    localStorage.removeItem("user"); // <-- Ajoute ça si nécessaire
+    localStorage.removeItem("user");
     this.currentEmailSubject.next(null);
-    this.router.navigate(['/']); // ou vers la page de login
+    this.router.navigate(['/']);
   }
-  
 
   getEmail(): string | null {
     return localStorage.getItem(this.emailKey);
@@ -55,9 +81,8 @@ export class AuthService {
     return localStorage.getItem(this.emailKey);
   }
 
-
-   removeStorage(): void  {
-    return localStorage.removeItem("user")
+  removeStorage(): void {
+    localStorage.removeItem("user");
   }
 
   isLoggedIn(): boolean {
@@ -67,7 +92,6 @@ export class AuthService {
   setUser(user: User): void {
     localStorage.setItem("user", JSON.stringify(user));
   }
-
 
   getUser(): User | null {
     const userJson = localStorage.getItem("user");
@@ -79,28 +103,25 @@ export class AuthService {
     return user?.role || null;
   }
 
-  
-redirectByRole(): void {
-  const user = this.getUser();
-  const role = user?.role;
+  redirectByRole(): void {
+    const role = this.getRole();
+    if (!role) {
+      this.router.navigate(['/login']);
+      return;
+    }
 
-  if (!role) {
-    this.router.navigate(['/login']); // ou une page d'erreur
-    return;
+    switch (role) {
+      case 'STUDENT':
+        this.router.navigate(['/courses']);
+        break;
+      case 'INSTRUCTOR':
+        this.router.navigate(['/instructor/dashboard']);
+        break;
+      case 'ADMIN':
+        this.router.navigate(['/admin/dashboard']);
+        break;
+      default:
+        this.router.navigate(['/login']);
+    }
   }
-
-  switch (role) {
-    case 'STUDENT':
-      this.router.navigate(['/courses']);
-      break;
-    case 'INSTRUCTOR':
-      this.router.navigate(['/instructor/dashboard']);
-      break;
-    case 'ADMIN':
-      this.router.navigate(['/admin/dashboard']);
-      break;
-    default:
-      this.router.navigate(['/login']); // fallback
-  }
-}
 }

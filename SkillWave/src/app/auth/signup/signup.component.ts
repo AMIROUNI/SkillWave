@@ -33,12 +33,9 @@ export class SignupComponent {
         Validators.required,
         Validators.minLength(8)
       ]],
-      confirmPassword: ['', [Validators.required]],
-      role: ['STUDENT', [Validators.required]],
-      avatarUrl: [''],
-      bio: ['']
-    });
-  }
+    
+  })
+}
 
   triggerFileInput(fileInput: HTMLInputElement): void {
     fileInput.click();
@@ -78,7 +75,7 @@ export class SignupComponent {
         this.signupForm.patchValue({ avatarUrl });
 
         const user: User = {
-          username: this.signupForm.value.username,
+          name: this.signupForm.value.username,
           email: this.signupForm.value.email,
           password: this.signupForm.value.password,
           role: this.signupForm.value.role,
